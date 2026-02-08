@@ -10,11 +10,8 @@ spec:
       match:
         any:
           - resources:
-              kinds:
-                - Pod
-              namespaces:
-                - tenant-a
-                - tenant-b
+              kinds: ["Pod"]
+              namespaces: ["tenant-a","tenant-b"]
       validate:
         message: "Tenant workloads must set CPU/memory requests and limits."
         pattern:
