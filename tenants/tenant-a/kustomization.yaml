@@ -5,3 +5,7 @@ resources:
   - tenant-a.resource.yaml
   - deployment.yaml
   - service.yaml
+  - networkpolicies/default-deny.yaml
+  - networkpolicies/allow-dns-egress.yaml
+  - networkpolicies/allow-ingress-from-traefik.yaml
+  - networkpolicies/allow-prometheus-scrape.yaml
