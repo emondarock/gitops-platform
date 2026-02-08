@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
   - tenant-b.rbac.yaml
   - tenant-b.resource.yaml
+  - deployment.yaml
+  - service.yaml
