@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-tenant-b
+  namespace: platform
+  labels:
+    grafana_dashboard: "1"
+data:
+  tenant-b-overview.json: |
+    {
+      "title": "Tenant B - Namespace Overview",
+      "tags": ["tenant-b", "kubernetes"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "10s",
+      "panels": [
+        {
+          "type": "timeseries",
+          "title": "CPU Usage (cores) - tenant-b",
+          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "targets": [
+            {
+              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"tenant-b\",container!=\"\",image!=\"\"}[5m]))",
+              "legendFormat": "cpu cores"
+            }
+          ],
+          "gridPos": {"x":0,"y":0,"w":12,"h":8}
+        },
+        {
+          "type": "timeseries",
+          "title": "Memory Usage (bytes) - tenant-b",
+          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "targets": [
+            {
+              "expr": "sum(container_memory_working_set_bytes{namespace=\"tenant-b\",container!=\"\",image!=\"\"})",
+              "legendFormat": "memory bytes"
+            }
+          ],
+          "gridPos": {"x":12,"y":0,"w":12,"h":8}
+        },
+        {
+          "type": "stat",
+          "title": "Pod Restarts (last 1h) - tenant-b",
+          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "targets": [
+            {
+              "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"tenant-b\"}[1h]))"
+            }
+          ],
+          "gridPos": {"x":0,"y":8,"w":8,"h":6}
+        },
+        {
+          "type": "stat",
+          "title": "Running Pods - tenant-b",
+          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "targets": [
+            {
+              "expr": "sum(kube_pod_status_phase{namespace=\"tenant-b\",phase=\"Running\"})"
+            }
+          ],
+          "gridPos": {"x":8,"y":8,"w":8,"h":6}
+        },
+        {
+          "type": "stat",
+          "title": "Failed Pods - tenant-b",
+          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "targets": [
+            {
+              "expr": "sum(kube_pod_status_phase{namespace=\"tenant-b\",phase=\"Failed\"})"
+            }
+          ],
+          "gridPos": {"x":16,"y":8,"w":8,"h":6}
+        }
+      ]
+    }

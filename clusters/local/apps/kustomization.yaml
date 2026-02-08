@@ -4,3 +4,4 @@ resources:
   - tenant-a-app.yaml
   - tenant-b-app.yaml
   - observability-app.yaml
+  - platform-config-app.yaml
