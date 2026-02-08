@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tenant-b
+  namespace: argocd
+spec:
+  project: tenant-b
+  source:
+    repoURL: https://github.com/emondarock/gitops-platform.git
+    targetRevision: main
+    path: tenants/tenant-b
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tenant-b
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
