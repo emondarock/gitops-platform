@@ -1,0 +1,42 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: tenant-b-availability-slo
+  namespace: platform
+spec:
+  groups:
+    - name: tenant-b.slo.availability
+      rules:
+        - alert: TenantBAvailabilityFastBurn
+          expr: |
+            (
+              1 - (
+                sum(rate(kube_pod_status_ready{namespace="tenant-b",condition="true"}[5m]))
+                /
+                sum(rate(kube_pod_status_ready{namespace="tenant-b"}[5m]))
+              )
+            ) > (14.4 * 0.001)
+          for: 5m
+          labels:
+            severity: critical
+            tenant: tenant-b
+          annotations:
+            summary: "Tenant B availability SLO fast burn"
+            description: "Tenant B is burning error budget too fast (5m window)."
+
+        - alert: TenantBAvailabilitySlowBurn
+          expr: |
+            (
+              1 - (
+                sum(rate(kube_pod_status_ready{namespace="tenant-b",condition="true"}[30m]))
+                /
+                sum(rate(kube_pod_status_ready{namespace="tenant-b"}[30m]))
+              )
+            ) > (6 * 0.001)
+          for: 30m
+          labels:
+            severity: warning
+            tenant: tenant-b
+          annotations:
+            summary: "Tenant B availability SLO slow burn"
+            description: "Tenant B is steadily burning error budget (30m window)."
