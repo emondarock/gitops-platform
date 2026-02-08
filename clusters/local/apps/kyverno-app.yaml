@@ -16,10 +16,6 @@ spec:
     targetRevision: 3.2.6
     helm:
       values: |
-        cleanupJobs:
-          image:
-            repository: registry.k8s.io/kubectl
-            tag: latest
         crds:
           install: false
         installCRDs: false
