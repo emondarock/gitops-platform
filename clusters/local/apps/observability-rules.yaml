@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-rules
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: platform
+  source:
+    repoURL: https://github.com/emondarock/gitops-platform.git
+    targetRevision: main
+    path: platform/observability/slo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
