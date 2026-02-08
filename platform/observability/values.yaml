@@ -1,0 +1,29 @@
+grafana:
+  enabled: true
+  adminPassword: "admin"  # change later
+  defaultDashboardsEnabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - grafana.localtest.me
+    path: /
+    pathType: Prefix
+
+prometheus:
+  enabled: true
+  prometheusSpec:
+    retention: 2d
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+
+alertmanager:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
