@@ -7,3 +7,4 @@ resources:
   - tenant-b-app.yaml
   - observability-app.yaml
   - platform-config-app.yaml
+  - observability-rules.yaml
