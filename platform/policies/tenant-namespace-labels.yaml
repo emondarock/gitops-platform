@@ -1,0 +1,20 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: tenant-namespace-labels
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: tenant-ns-must-have-tenant-label
+      match:
+        any:
+          - resources:
+              kinds: ["Namespace"]
+              names: ["tenant-a","tenant-b"]
+      validate:
+        message: "Tenant namespaces must include label tenant=<name>."
+        pattern:
+          metadata:
+            labels:
+              tenant: "?*"
