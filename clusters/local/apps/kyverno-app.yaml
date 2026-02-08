@@ -11,6 +11,7 @@ spec:
     targetRevision: 3.2.6
     helm:
       values: |
+        installCRDs: false
         replicaCount: 1
         admissionController:
           replicas: 1
