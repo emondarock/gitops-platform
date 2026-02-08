@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - tenant-a-app.yaml
   - tenant-b-app.yaml
-  - ../../../platform/observability/app.yaml
+  - observability-app.yaml
