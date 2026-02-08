@@ -21,6 +21,11 @@ spec:
               - grafana.localtest.me
             path: /
             pathType: Prefix
+          sidecar:
+            dashboards:
+              enabled: true
+              label: grafana_dashboard
+              labelValue: "1"
 
         prometheus:
           prometheusSpec:
@@ -34,3 +39,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
