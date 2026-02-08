@@ -18,7 +18,7 @@ data:
         {
           "type": "timeseries",
           "title": "CPU Usage (cores) - tenant-b",
-          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "datasource": {"type":"prometheus","uid":"prometheus"},
           "targets": [
             {
               "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"tenant-b\",container!=\"\",image!=\"\"}[5m]))",
@@ -30,7 +30,7 @@ data:
         {
           "type": "timeseries",
           "title": "Memory Usage (bytes) - tenant-b",
-          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "datasource": {"type":"prometheus","uid":"prometheus"},
           "targets": [
             {
               "expr": "sum(container_memory_working_set_bytes{namespace=\"tenant-b\",container!=\"\",image!=\"\"})",
@@ -42,7 +42,7 @@ data:
         {
           "type": "stat",
           "title": "Pod Restarts (last 1h) - tenant-b",
-          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "datasource": {"type":"prometheus","uid":"prometheus"},
           "targets": [
             {
               "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"tenant-b\"}[1h]))"
@@ -53,7 +53,7 @@ data:
         {
           "type": "stat",
           "title": "Running Pods - tenant-b",
-          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "datasource": {"type":"prometheus","uid":"prometheus"},
           "targets": [
             {
               "expr": "sum(kube_pod_status_phase{namespace=\"tenant-b\",phase=\"Running\"})"
@@ -64,7 +64,7 @@ data:
         {
           "type": "stat",
           "title": "Failed Pods - tenant-b",
-          "datasource": {"type":"prometheus","uid":"PROMETHEUS"},
+          "datasource": {"type":"prometheus","uid":"prometheus"},
           "targets": [
             {
               "expr": "sum(kube_pod_status_phase{namespace=\"tenant-b\",phase=\"Failed\"})"
