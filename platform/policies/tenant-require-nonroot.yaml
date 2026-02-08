@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: tenant-require-nonroot
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: require-nonroot-dropcaps
+      match:
+        any:
+          - resources:
+              kinds: ["Pod"]
+              namespaces: ["tenant-a","tenant-b"]
+      validate:
+        message: "Tenant pods must run as non-root and drop Linux capabilities."
+        pattern:
+          spec:
+            securityContext:
+              runAsNonRoot: true
+            containers:
+              - securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                      - ALL
